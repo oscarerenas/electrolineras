@@ -40,6 +40,14 @@ const TILES = {
 };
 const TILE_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>';
 
+// ── Price tier colors ──
+const PRICE_COLORS = {
+  free:      '#4caf50',  // green
+  cheap:     '#8bc34a',  // light green
+  mid:       '#ffc107',  // amber
+  expensive: '#f44336',  // red
+};
+
 // ── Spain center ──
 const SPAIN_CENTER = [40.0, -3.7];
 const SPAIN_ZOOM = 6;

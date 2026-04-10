@@ -53,10 +53,10 @@ function applyFilters(stations) {
       if (cat.label !== filterPower) return false;
     }
 
-    // Operator filter
+    // Operator filter (by name, works for both OCM and OSM stations)
     if (filterOperator) {
-      const opId = s.OperatorID ? String(s.OperatorID) : '';
-      if (opId !== filterOperator) return false;
+      const opName = s.OperatorInfo ? s.OperatorInfo.Title : '';
+      if (opName !== filterOperator) return false;
     }
 
     // Legend filter (exclusive — only show this category)
@@ -86,8 +86,9 @@ function populateFilters(stations) {
         connTypes.set(c.ConnectionTypeID, connectorName(c.ConnectionTypeID));
       }
     });
-    if (s.OperatorID && s.OperatorInfo) {
-      operators.set(String(s.OperatorID), s.OperatorInfo.Title || `Operador ${s.OperatorID}`);
+    if (s.OperatorInfo && s.OperatorInfo.Title) {
+      const name = s.OperatorInfo.Title;
+      operators.set(name, (operators.get(name) || 0) + 1);
     }
   });
 
@@ -101,13 +102,16 @@ function populateFilters(stations) {
     connectorSelect.appendChild(opt);
   });
 
-  // Operator dropdown
+  // Operator dropdown — only show networks with 10+ stations (real networks, not random venues)
   operatorSelect.innerHTML = `<option value="">${t('allOperators')}</option>`;
-  [...operators.entries()].sort((a, b) => a[1].localeCompare(b[1])).forEach(([id, name]) => {
-    const opt = document.createElement('option');
-    opt.value = id;
-    opt.textContent = name;
-    if (id === filterOperator) opt.selected = true;
-    operatorSelect.appendChild(opt);
-  });
+  [...operators.entries()]
+    .filter(([, count]) => count >= 10)
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .forEach(([name, count]) => {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = `${name} (${count})`;
+      if (name === filterOperator) opt.selected = true;
+      operatorSelect.appendChild(opt);
+    });
 }

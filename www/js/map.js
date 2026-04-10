@@ -89,6 +89,19 @@ function renderLegend(container) {
     </div>`;
   }).join('');
 
+  {
+    const priceTiers = [
+      { key: 'free',      color: PRICE_COLORS.free },
+      { key: 'cheap',     color: PRICE_COLORS.cheap },
+      { key: 'mid',       color: PRICE_COLORS.mid },
+      { key: 'expensive', color: PRICE_COLORS.expensive },
+    ];
+    container.innerHTML += `<hr style="margin:6px 0;border-color:var(--border)"><strong>${t('priceLabel')}</strong>` +
+      priceTiers.map(p =>
+        `<div class="legend-item"><span class="legend-dot" style="background:${p.color}"></span> ${t('price' + p.key.charAt(0).toUpperCase() + p.key.slice(1))}</div>`
+      ).join('');
+  }
+
   if (lastCount !== null) {
     container.innerHTML += `<div class="legend-count">${lastCount} ${t('stations')}</div>`;
   }
@@ -130,10 +143,24 @@ function createMarker(station) {
   const conns = station.Connections || [];
   const maxKw = Math.max(...conns.map(c => c.PowerKW || 0), 0);
   const cat = getPowerCategory(maxKw);
+  const priceColor = station._priceTier ? PRICE_COLORS[station._priceTier] : null;
+  const showPriceOnly = legendFilter || filterPower; // single power category active
+
+  let dotHtml;
+  if (priceColor && showPriceOnly) {
+    // Only price color when filtering by power
+    dotHtml = `<div class="marker-dot" style="background:${priceColor}"></div>`;
+  } else if (priceColor) {
+    // Half-and-half: left = power, right = price
+    dotHtml = `<div class="marker-dot" style="background:linear-gradient(90deg, ${cat.color} 50%, ${priceColor} 50%)"></div>`;
+  } else {
+    // No price data: solid power color
+    dotHtml = `<div class="marker-dot" style="background:${cat.color}"></div>`;
+  }
 
   const icon = L.divIcon({
     className: 'charger-marker',
-    html: `<div style="background:${cat.color}" class="marker-dot"></div>`,
+    html: dotHtml,
     iconSize: [14, 14],
     iconAnchor: [7, 7],
   });
@@ -157,13 +184,25 @@ function buildPopup(station, maxKw, cat) {
     return `<div class="conn-item">${name} ${pw}${qty}</div>`;
   }).join('');
 
-  const costText = station.UsageCost || t('unknown');
+  // Normalize cost: consistent decimal comma for Spanish locale
+  let costText = station.UsageCost || t('unknown');
+  if (station.UsageCost) {
+    costText = costText.replace(/(\d)\.(\d)/g, '$1,$2');
+  }
+
+  // Build address: avoid repeating town in province
+  const addrParts = [addr.AddressLine1, addr.Town].filter(Boolean);
+  if (addr.StateOrProvince && addr.StateOrProvince !== addr.Town) {
+    addrParts.push(addr.StateOrProvince);
+  }
+  const addrText = addrParts.join(', ');
+
   const navUrl = `https://www.google.com/maps/dir/?api=1&destination=${addr.Latitude},${addr.Longitude}`;
 
   return `
     <div class="popup-content">
       <h3>${addr.Title || t('unknown')}</h3>
-      <div class="popup-address">${addr.AddressLine1 || ''}, ${addr.Town || ''}</div>
+      <div class="popup-address">${addrText}</div>
       <div class="popup-field"><strong>${t('operatorLabel')}:</strong> ${op}</div>
       <div class="popup-field"><strong>${t('maxPower')}:</strong> <span style="color:${cat.color};font-weight:bold">${maxKw} kW</span></div>
       <div class="popup-field"><strong>${t('cost')}:</strong> ${costText}</div>
