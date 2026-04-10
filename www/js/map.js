@@ -7,11 +7,18 @@ let lastCount = null;
 let legendDiv = null;
 let zoomControl = null;
 let isDark = true;
+let themeMode = 'auto'; // 'auto', 'dark', 'light'
 
 // ── Initialize map ──
+function resolveTheme(mode) {
+  if (mode === 'auto') return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  return mode === 'dark';
+}
+
 function initMap() {
   const prefs = loadPrefs();
-  isDark = prefs.dark !== false;
+  themeMode = prefs.theme || (prefs.dark === false ? 'light' : prefs.dark === true ? 'dark' : 'auto');
+  isDark = resolveTheme(themeMode);
   document.body.classList.toggle('light', !isDark);
 
   map = L.map('map', { zoomControl: false }).setView(SPAIN_CENTER, SPAIN_ZOOM);
@@ -33,6 +40,15 @@ function initMap() {
   });
   map.addLayer(markers);
 
+  // React to system theme changes when in auto mode
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    if (themeMode !== 'auto') return;
+    isDark = resolveTheme('auto');
+    document.body.classList.toggle('light', !isDark);
+    tileLayer.setUrl(isDark ? TILES.dark : TILES.light);
+    createZoomControl();
+  });
+
   createZoomControl();
   createLegend();
   geolocate();
@@ -48,8 +64,8 @@ function createZoomControl() {
       <button onclick="map.zoomIn()" title="Zoom in">+</button>
       <button onclick="map.zoomOut()" title="Zoom out">−</button>
       <button onclick="geolocate()" title="Mi ubicación">◎</button>
-      <button onclick="toggleDarkMode()" id="darkModeBtn" title="${isDark ? t('lightMode') : t('darkMode')}">
-        ${isDark ? '☀️' : '🌙'}
+      <button onclick="toggleDarkMode()" id="darkModeBtn" title="${themeMode === 'auto' ? 'Auto' : isDark ? t('lightMode') : t('darkMode')}">
+        ${themeMode === 'auto' ? '◐' : isDark ? '☀️' : '🌙'}
       </button>
     `;
     L.DomEvent.disableClickPropagation(div);
@@ -115,10 +131,12 @@ function toggleLegendFilter(label) {
 
 // ── Dark/light mode ──
 function toggleDarkMode() {
-  isDark = !isDark;
+  // Cycle: auto → dark → light → auto
+  themeMode = themeMode === 'auto' ? 'dark' : themeMode === 'dark' ? 'light' : 'auto';
+  isDark = resolveTheme(themeMode);
   document.body.classList.toggle('light', !isDark);
   tileLayer.setUrl(isDark ? TILES.dark : TILES.light);
-  savePrefs({ dark: isDark });
+  savePrefs({ theme: themeMode });
   createZoomControl();
 }
 

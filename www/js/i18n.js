@@ -1,15 +1,15 @@
 // ── Language definitions ──
 const LANGS = {
-  es: { name: 'Español',    flag: 'es' },
-  en: { name: 'English',    flag: 'gb' },
-  fr: { name: 'Français',   flag: 'fr' },
-  ca: { name: 'Català',     flag: 'es-ct' },
-  eu: { name: 'Euskara',    flag: 'es-pv' },
-  gl: { name: 'Galego',     flag: 'es-ga' },
-  it: { name: 'Italiano',   flag: 'it' },
-  pt: { name: 'Português',  flag: 'pt' },
-  de: { name: 'Deutsch',    flag: 'de' },
-  ar: { name: 'العربية',    flag: 'sa' },
+  es: { name: 'Español',    flag: '🇪🇸' },
+  en: { name: 'English',    flag: '🇬🇧' },
+  fr: { name: 'Français',   flag: '🇫🇷' },
+  ca: { name: 'Català',     flag: '🏳️' },
+  eu: { name: 'Euskara',    flag: '🏳️' },
+  gl: { name: 'Galego',     flag: '🏳️' },
+  it: { name: 'Italiano',   flag: '🇮🇹' },
+  pt: { name: 'Português',  flag: '🇵🇹' },
+  de: { name: 'Deutsch',    flag: '🇩🇪' },
+  ar: { name: 'العربية',    flag: '🇸🇦' },
 };
 
 const T = {

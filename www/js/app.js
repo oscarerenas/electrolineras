@@ -16,7 +16,7 @@ function setupUI() {
   Object.entries(LANGS).forEach(([code, { name, flag }]) => {
     const opt = document.createElement('option');
     opt.value = code;
-    opt.textContent = `${name}`;
+    opt.textContent = `${flag} ${name}`;
     if (code === currentLang) opt.selected = true;
     langSel.appendChild(opt);
   });
