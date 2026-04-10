@@ -114,6 +114,10 @@ function applyTranslations() {
   `;
   powerSel.value = curPower;
 
+  // Footer
+  document.getElementById('footer').innerHTML =
+    `${t('aboutData')} <a href="https://openchargemap.org" target="_blank">Open Charge Map</a> + <a href="https://www.openstreetmap.org" target="_blank">OpenStreetMap</a>`;
+
   // Update legend and zoom control
   renderLegend();
   if (map) createZoomControl();

@@ -150,6 +150,21 @@ body {
   z-index: 1;
 }
 
+/* ── Footer ── */
+.footer {
+  background: var(--bg2);
+  color: var(--fg2);
+  text-align: center;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  border-top: 1px solid var(--border);
+  z-index: 2;
+}
+.footer a {
+  color: var(--accent2);
+  text-decoration: none;
+}
+
 /* ── Marker styles ── */
 .marker-dot {
   width: 14px;
