@@ -1,0 +1,18 @@
+{
+  "name": "electrolineras",
+  "version": "1.0.0",
+  "description": "Real-time map of EV charging stations in Spain",
+  "main": "server.js",
+  "scripts": {
+    "serve": "node server.js",
+    "sync": "npx cap sync",
+    "android": "npx cap open android"
+  },
+  "author": "Oscar Erenas Rodriguez <vibecoding@erenas.org>",
+  "license": "MIT",
+  "dependencies": {
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/geolocation": "^7.0.0"
+  }
+}

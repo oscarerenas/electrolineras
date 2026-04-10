@@ -1,0 +1,22 @@
+services:
+  electrolineras:
+    image: node:22-alpine
+    working_dir: /app
+    command: node server.js
+    volumes:
+      - ./:/app
+    restart: unless-stopped
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.electrolineras.rule=Host(`electrolineras.greenjo.net`)"
+      - "traefik.http.routers.electrolineras.entrypoints=websecure"
+      - "traefik.http.routers.electrolineras.tls.certresolver=mydns"
+      - "traefik.http.services.electrolineras.loadbalancer.server.port=3001"
+      - "traefik.http.services.electrolineras.loadbalancer.server.scheme=http"
+
+networks:
+  proxy:
+    external: true
