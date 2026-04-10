@@ -159,7 +159,9 @@ function renderAboutModal() {
   document.getElementById('aboutBody').innerHTML = `
     <h2>${t('aboutTitle')}</h2>
     <p>${t('aboutDesc')}</p>
-    <p>${t('aboutData')} <a href="https://openchargemap.org" target="_blank">Open Charge Map</a></p>
+    <p>${t('aboutData')}
+      <a href="https://openchargemap.org" target="_blank">Open Charge Map</a> +
+      <a href="https://www.openstreetmap.org" target="_blank">OpenStreetMap</a> (Overpass API)</p>
     <hr>
     <h3>${t('aboutLicense')}</h3>
     <p>MIT License &copy; 2026</p>
@@ -167,12 +169,14 @@ function renderAboutModal() {
     <p>${t('aboutAuthor')} <strong>Oscar Erenas Rodriguez</strong><br>
     <a href="mailto:vibecoding@erenas.org">vibecoding@erenas.org</a></p>
     <p><em>${t('aboutAI')}</em></p>
+    <p><a href="https://github.com/oscarerenas/electrolineras" target="_blank">GitHub</a></p>
     <hr>
     <h3>Tecnologias</h3>
     <ul>
       <li><a href="https://leafletjs.com" target="_blank">Leaflet</a> — Interactive maps</li>
       <li><a href="https://github.com/Leaflet/Leaflet.markercluster" target="_blank">MarkerCluster</a> — Marker clustering</li>
-      <li><a href="https://openchargemap.org" target="_blank">Open Charge Map</a> — Charging station data</li>
+      <li><a href="https://openchargemap.org" target="_blank">Open Charge Map</a> — Charging station data (API)</li>
+      <li><a href="https://www.openstreetmap.org" target="_blank">OpenStreetMap</a> — Charging station data (Overpass API)</li>
       <li><a href="https://capacitorjs.com" target="_blank">Apache Capacitor</a> — Native mobile</li>
       <li><a href="https://carto.com" target="_blank">CARTO</a> — Map tiles</li>
     </ul>
