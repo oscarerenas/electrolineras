@@ -428,8 +428,76 @@ body {
 
 /* ── Responsive ── */
 @media (max-width: 600px) {
-  .header { padding: 8px 12px; }
-  .filters { padding: 6px 12px; }
-  .header-title h1 { font-size: 0.95rem; }
-  .legend { font-size: 0.7rem; padding: 8px 10px; }
+  /* Header: more compact */
+  .header { padding: 6px 10px; }
+  .header-title h1 { font-size: 1rem; }
+  .header-title p { display: none; }
+  .header-actions select { font-size: 0.85rem; padding: 6px 8px; }
+  .icon-btn { width: 36px; height: 36px; font-size: 1.1rem; }
+
+  /* Filters: stack vertically, larger touch targets */
+  .filters {
+    padding: 6px 10px;
+    gap: 6px;
+    flex-direction: column;
+    overflow-x: visible;
+  }
+  .filters input,
+  .filters select {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 10px 12px;
+    min-width: 0;
+    flex: none;
+  }
+  .filters input { min-width: 0; }
+  .clear-btn {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+  .station-count {
+    margin-left: 0;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  /* Map controls: bigger touch targets */
+  .custom-zoom button {
+    width: 44px;
+    height: 44px;
+    font-size: 1.3rem;
+  }
+
+  /* Legend: compact on mobile */
+  .legend {
+    font-size: 0.75rem;
+    padding: 8px 10px;
+    max-width: 140px;
+  }
+
+  /* Popups: wider on mobile */
+  .leaflet-popup-content-wrapper {
+    max-width: 85vw !important;
+  }
+  .popup-content h3 { font-size: 1rem; }
+  .popup-field { font-size: 0.85rem; }
+  .popup-btn {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+  .fav-btn {
+    width: 44px;
+    font-size: 1.4rem;
+  }
+
+  /* Footer */
+  .footer { font-size: 0.65rem; }
+
+  /* Clusters: slightly bigger */
+  .marker-cluster div {
+    width: 40px;
+    height: 40px;
+    font-size: 13px;
+  }
 }
