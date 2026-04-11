@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function setupUI() {
   // Language selector
   const langSel = document.getElementById('langSelect');
-  Object.entries(LANGS).forEach(([code, { name, flag }]) => {
+  Object.entries(LANGS).forEach(([code, { name }]) => {
     const opt = document.createElement('option');
     opt.value = code;
-    opt.textContent = `${flag} ${name}`;
+    opt.textContent = name;
     if (code === currentLang) opt.selected = true;
     langSel.appendChild(opt);
   });
