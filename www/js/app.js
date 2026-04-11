@@ -37,6 +37,7 @@ function setupUI() {
     savePrefs({ power: filterPower });
     legendFilter = filterPower || null;
     renderStations();
+    updateFilterCount();
   });
 
   // Connector filter
@@ -44,6 +45,7 @@ function setupUI() {
     filterConnector = e.target.value;
     savePrefs({ connector: filterConnector });
     renderStations();
+    updateFilterCount();
   });
 
   // Operator filter
@@ -51,6 +53,7 @@ function setupUI() {
     filterOperator = e.target.value;
     savePrefs({ operator: filterOperator });
     renderStations();
+    updateFilterCount();
   });
 
   // Clear filters
@@ -64,6 +67,7 @@ function setupUI() {
     document.getElementById('operatorFilter').value = '';
     savePrefs({ connector: '', power: '', operator: '' });
     renderStations();
+    updateFilterCount();
   });
 
   // Refresh
@@ -90,6 +94,39 @@ function setupUI() {
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => searchLocation(e.target.value), 500);
   });
+
+  // Filters drawer
+  const drawer = document.getElementById('drawer');
+  const drawerOverlay = document.getElementById('drawerOverlay');
+  const openDrawer = () => {
+    drawer.classList.add('open');
+    drawerOverlay.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+  };
+  const closeDrawer = () => {
+    drawer.classList.remove('open');
+    drawerOverlay.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+  };
+  document.getElementById('filtersBtn').addEventListener('click', openDrawer);
+  document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+  drawerOverlay.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+  });
+}
+
+// Update filter-count badge on the filters button
+function updateFilterCount() {
+  const btn = document.getElementById('filtersBtn');
+  const countEl = document.getElementById('filterCount');
+  if (!btn || !countEl) return;
+  let n = 0;
+  if (filterConnector) n++;
+  if (filterPower) n++;
+  if (filterOperator) n++;
+  countEl.textContent = n;
+  btn.classList.toggle('has-filters', n > 0);
 }
 
 // ── Apply translations ──
@@ -100,7 +137,14 @@ function applyTranslations() {
   document.getElementById('searchInput').placeholder = t('search');
   document.getElementById('clearFilters').textContent = t('clearFilters');
   document.getElementById('refreshBtn').title = t('refresh');
+  document.getElementById('refreshBtn').textContent = '🔄 ' + t('refresh');
   document.getElementById('aboutBtn').title = t('about');
+  document.getElementById('filtersBtn').title = t('filters');
+  document.getElementById('filtersBtnLabel').textContent = t('filters');
+  document.getElementById('drawerTitle').textContent = t('filters');
+  document.getElementById('labelConnector').textContent = t('connector');
+  document.getElementById('labelPower').textContent = t('power');
+  document.getElementById('labelOperator').textContent = t('operator');
 
   // Power filter options
   const powerSel = document.getElementById('powerFilter');
@@ -134,6 +178,7 @@ async function loadStations() {
     allStations = await res.json();
     populateFilters(allStations);
     renderStations();
+    updateFilterCount();
   } catch (e) {
     console.error('Error loading stations:', e);
     document.getElementById('stationCount').textContent = t('error');
