@@ -22,29 +22,56 @@
         <h1>⚡ <span id="appTitle">Electrolineras España</span></h1>
         <p id="appSubtitle">Puntos de recarga para vehículos eléctricos</p>
       </div>
+      <div class="header-search">
+        <input type="text" id="searchInput" placeholder="Buscar ciudad o dirección…">
+      </div>
       <div class="header-actions">
+        <button class="filters-btn" id="filtersBtn" title="Filtros">
+          <span>☰</span>
+          <span id="filtersBtnLabel">Filtros</span>
+          <span class="filter-count" id="filterCount">0</span>
+        </button>
         <select id="langSelect"></select>
-        <button class="icon-btn" id="refreshBtn" title="Actualizar">🔄</button>
         <button class="icon-btn" id="aboutBtn" title="Acerca de">ℹ️</button>
       </div>
     </div>
+    <div class="header-status">
+      <span class="station-count" id="stationCount"></span>
+    </div>
   </div>
 
-  <!-- Filters -->
-  <div class="filters">
-    <input type="text" id="searchInput" placeholder="Buscar ciudad o dirección…">
-    <select id="connectorFilter"><option value="">Todos los conectores</option></select>
-    <select id="powerFilter">
-      <option value="">Todas las potencias</option>
-      <option value="slow">Lento (≤7 kW)</option>
-      <option value="semiRapid">Semi-rápido (7–22 kW)</option>
-      <option value="rapid">Rápido (22–50 kW)</option>
-      <option value="ultra">Ultra-rápido (>50 kW)</option>
-    </select>
-    <select id="operatorFilter"><option value="">Todos los operadores</option></select>
-    <button class="clear-btn" id="clearFilters">Limpiar filtros</button>
-    <span class="station-count" id="stationCount"></span>
-  </div>
+  <!-- Filters drawer -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-header">
+      <h2 id="drawerTitle">Filtros</h2>
+      <button class="drawer-close" id="drawerClose" aria-label="Close">✕</button>
+    </div>
+    <div class="drawer-body">
+      <div class="drawer-section">
+        <label id="labelConnector">Conector</label>
+        <select id="connectorFilter"><option value="">Todos los conectores</option></select>
+      </div>
+      <div class="drawer-section">
+        <label id="labelPower">Potencia</label>
+        <select id="powerFilter">
+          <option value="">Todas las potencias</option>
+          <option value="slow">Lento (≤7 kW)</option>
+          <option value="semiRapid">Semi-rápido (7–22 kW)</option>
+          <option value="rapid">Rápido (22–50 kW)</option>
+          <option value="ultra">Ultra-rápido (>50 kW)</option>
+        </select>
+      </div>
+      <div class="drawer-section">
+        <label id="labelOperator">Operador</label>
+        <select id="operatorFilter"><option value="">Todos los operadores</option></select>
+      </div>
+      <div class="drawer-footer">
+        <button class="clear-btn" id="clearFilters">Limpiar filtros</button>
+        <button class="clear-btn" id="refreshBtn">🔄 Actualizar</button>
+      </div>
+    </div>
+  </aside>
 
   <!-- Map -->
   <div id="map"></div>

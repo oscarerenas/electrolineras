@@ -62,6 +62,7 @@ const T = {
     priceExpensive: 'Caro',
     priceUnknown: 'Sin precio',
     priceLabel: 'Precio',
+    filters: 'Filtros',
   },
   en: {
     title: 'EV Chargers Spain',
@@ -112,6 +113,7 @@ const T = {
     priceExpensive: 'Expensive',
     priceUnknown: 'No price',
     priceLabel: 'Price',
+    filters: 'Filters',
   },
   fr: {
     title: 'Bornes de recharge Espagne',
@@ -156,6 +158,7 @@ const T = {
     statusUnknown: 'État inconnu',
     addFavorite: 'Ajouter aux favoris',
     removeFavorite: 'Retirer des favoris',
+    filters: 'Filtres',
   },
   ca: {
     title: 'Electrolineres Espanya',
@@ -200,6 +203,7 @@ const T = {
     statusUnknown: 'Estat desconegut',
     addFavorite: 'Afegir a favorits',
     removeFavorite: 'Treure de favorits',
+    filters: 'Filtres',
   },
   eu: {
     title: 'Elektrolinera Espainia',
@@ -244,6 +248,7 @@ const T = {
     statusUnknown: 'Egoera ezezaguna',
     addFavorite: 'Gogokoetara gehitu',
     removeFavorite: 'Gogokoetatik kendu',
+    filters: 'Iragazkiak',
   },
   gl: {
     title: 'Electrolineiras España',
@@ -288,6 +293,7 @@ const T = {
     statusUnknown: 'Estado descoñecido',
     addFavorite: 'Engadir a favoritos',
     removeFavorite: 'Quitar de favoritos',
+    filters: 'Filtros',
   },
   it: {
     title: 'Colonnine di ricarica Spagna',
@@ -332,6 +338,7 @@ const T = {
     statusUnknown: 'Stato sconosciuto',
     addFavorite: 'Aggiungi ai preferiti',
     removeFavorite: 'Rimuovi dai preferiti',
+    filters: 'Filtri',
   },
   pt: {
     title: 'Eletropostos Espanha',
@@ -376,6 +383,7 @@ const T = {
     statusUnknown: 'Estado desconhecido',
     addFavorite: 'Adicionar aos favoritos',
     removeFavorite: 'Remover dos favoritos',
+    filters: 'Filtros',
   },
   de: {
     title: 'Ladestationen Spanien',
@@ -420,6 +428,7 @@ const T = {
     statusUnknown: 'Status unbekannt',
     addFavorite: 'Zu Favoriten hinzufügen',
     removeFavorite: 'Aus Favoriten entfernen',
+    filters: 'Filter',
   },
   ar: {
     title: 'محطات الشحن إسبانيا',
@@ -464,6 +473,7 @@ const T = {
     statusUnknown: 'الحالة غير معروفة',
     addFavorite: 'إضافة للمفضلة',
     removeFavorite: 'إزالة من المفضلة',
+    filters: 'عوامل التصفية',
   },
 };
 
